@@ -1,12 +1,17 @@
-import { creatStore } from "redux";
 let initialState = {
-  movies: {},
+  isLoading: false,
 };
-const reducer = (state = initialState, action) => {
+const searchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "":
-      return state;
+    case "GET-MOVIES":
+      return { ...state, ...action.movie, searchInfo: action.search };
+    case "SEARCH-IS-LOADING":
+      return { ...state, isLoading: action.isLoading };
+    case "CURRENT-MOVIE":
+      return { ...state, current_movie: action.current_movie };
     default:
       return state;
   }
 };
+
+export default searchReducer;

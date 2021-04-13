@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Card.sass";
 
 function Card({ movieData }) {
@@ -17,7 +18,9 @@ function Card({ movieData }) {
       </div>
       <div className="card__inner">
         <span className="card__title">{movieData.title}</span>
-        <button className="btn btn-primary">Узнать больше</button>
+        <Link to={`/fullcard/${movieData.id}`} className="btn btn-primary">
+          Узнать больше
+        </Link>
       </div>
     </div>
   );

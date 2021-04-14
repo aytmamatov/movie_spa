@@ -4,13 +4,16 @@ import { useParams } from "react-router";
 import Preloader from "../../UI/Preloader/Preloader";
 import ActorsCarousel from "./ActorsCarousel/ActorsCarousel";
 import "./FullCard.sass";
+import Recommendation from "./Recommendation/Recommendation";
 
 function FullCard() {
   const dispatch = useDispatch();
   const [movieState, setMovieState] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingActors, setisLoadingActors] = useState(true);
+  const [isLoadingRecommendation, setisLoadingRecommendation] = useState(true);
   const [movieActors, setMovieActors] = useState([]);
+  const [recommendation, setRecommendation] = useState({});
   let { id } = useParams();
   let releaseDateYear, releaseDate, genres, hourRuntime, minuteRuntime;
   if (Object.keys(movieState).length > 0) {
@@ -56,9 +59,20 @@ function FullCard() {
       })
       .then(() => setisLoadingActors(false));
   };
+  let requestSimilarMovies = () => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}/similar?api_key=c81dbb52630c695069ceb9c73e137dc2`
+    )
+      .then((r) => r.json())
+      .then((r) => {
+        setRecommendation(r);
+        setisLoadingRecommendation(false);
+      });
+  };
   useEffect(() => {
     dispatch(asyncCurrentMovie());
     requestMovieActors();
+    requestSimilarMovies();
   }, [id]);
 
   return (
@@ -124,11 +138,14 @@ function FullCard() {
               </div>
             </div>
           </div>
-          {isLoadingActors ? null : (
-            <div className="container">
+          <div className="container">
+            {isLoadingActors ? null : (
               <ActorsCarousel actors={movieActors} key="ActorsCarousel" />
-            </div>
-          )}
+            )}
+            {isLoadingRecommendation ? null : (
+              <Recommendation recommendation={recommendation} />
+            )}
+          </div>
         </>
       )}
     </div>

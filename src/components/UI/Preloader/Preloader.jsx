@@ -3,7 +3,7 @@ import Loader from "react-loader-spinner";
 import './Preloader.sass'
 
 function Preloader({
-  title = "Загрузка данных",
+  title = "Loading Data",
   type = "Bars",
   color = "#00BFFF",
   width = "60px",

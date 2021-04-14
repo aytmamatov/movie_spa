@@ -1,8 +1,8 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.scss";
 import "./ActorsCarousel.sass";
 
-import "swiper/swiper.scss";
 function ActorsCarousel({ actors }) {
   return (
     <div className="actors-carousel">

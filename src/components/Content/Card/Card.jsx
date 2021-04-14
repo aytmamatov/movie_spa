@@ -19,7 +19,7 @@ function Card({ movieData }) {
       <div className="card__inner">
         <span className="card__title">{movieData.title}</span>
         <Link to={`/fullcard/${movieData.id}`} className="btn btn-primary">
-          Узнать больше
+          Learn More
         </Link>
       </div>
     </div>

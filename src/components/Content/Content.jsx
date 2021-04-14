@@ -35,11 +35,11 @@ function Content({ movieList, setMovieList }) {
             })}
           </div>
           <button className="btn btn-primary" onClick={loadMore}>
-            Загрузить еще
+            Load more
           </button>
         </>
       ) : (
-        <span>Фильмы отсутствуют</span>
+        <span>No movies</span>
       )}
     </div>
   );

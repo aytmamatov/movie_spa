@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import Preloader from "../../UI/Preloader/Preloader";
 import ActorsCarousel from "./ActorsCarousel/ActorsCarousel";
@@ -7,6 +7,7 @@ import "./FullCard.sass";
 import Recommendation from "./Recommendation/Recommendation";
 
 function FullCard() {
+  const state = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
   const [movieState, setMovieState] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -33,17 +34,15 @@ function FullCard() {
     minuteRuntime = currentRuntime - hourRuntime * 60;
   }
   let asyncCurrentMovie = () => {
-    return (dispatch) => {
-      return fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=c81dbb52630c695069ceb9c73e137dc2`
-      )
-        .then((r) => r.json())
-        .then((r) => {
-          setMovieState(r);
-          setIsLoading(false);
-          // dispatch({ type: "CURRENT-MOVIE", current_movie: "Hello" });
-        });
-    };
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=c81dbb52630c695069ceb9c73e137dc2`
+    )
+      .then((r) => r.json())
+      .then((r) => {
+        setMovieState(r);
+        setIsLoading(false);
+        // dispatch({ type: "CURRENT-MOVIE", current_movie: "Hello" });
+      });
   };
   let requestMovieActors = () => {
     fetch(
@@ -69,8 +68,24 @@ function FullCard() {
         setisLoadingRecommendation(false);
       });
   };
+  let addToFavorites = (e) => {
+    e.preventDefault();
+    let sendRequest = () => (dispatch) => {
+      dispatch({ type: "ADD-TO-FAVORITES", favorites: movieState });
+    };
+    if (state.favoritesMovies.length > 0) {
+      state.favoritesMovies.map((item) => {
+        if (item.id != movieState.id) {
+          dispatch(sendRequest());
+        }
+      });
+    } else {
+      console.log("Only first");
+      dispatch(sendRequest());
+    }
+  };
   useEffect(() => {
-    dispatch(asyncCurrentMovie());
+    asyncCurrentMovie();
     requestMovieActors();
     requestSimilarMovies();
   }, [id]);
@@ -128,12 +143,21 @@ function FullCard() {
                   <span className="fullCard__tagline">
                     {movieState.tagline}
                   </span>
+
                   <div className="fullCard__group">
                     <h4 className="fullCard__overview">Overview</h4>
                     <span className="fullCard__text">
                       {movieState.overview}
                     </span>
                   </div>
+                  <ul className="fullCard__actions">
+                    <li
+                      onClick={addToFavorites}
+                      className="fullCard__add_to_favorites"
+                    >
+                      Add to favorites
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

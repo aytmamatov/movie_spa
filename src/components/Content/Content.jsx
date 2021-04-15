@@ -4,18 +4,19 @@ import Preloader from "../UI/Preloader/Preloader";
 import Card from "./Card/Card";
 import "./Content.sass";
 
-function Content({ movieList, setMovieList }) {
+function Content() {
   const state = useSelector((state) => state);
+  const [movieList, setMovieList] = useState([]);
   const [movie, setMovie] = useState({});
-
   useEffect(() => {
-    setMovie(state);
-    setMovieList(state.results);
+    setMovie(state.movie);
+    setMovieList(state.movie.results);
   }, [state]);
+
   let loadMore = () => {
     let currentPage = movie.page + 1;
     fetch(
-      `https://api.themoviedb.org/4/search/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&query=${state.searchInfo}&page=${currentPage}`
+      `https://api.themoviedb.org/4/search/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&query=${state.movie.searchInfo}&page=${currentPage}`
     )
       .then((r) => r.json())
       .then((r) => {

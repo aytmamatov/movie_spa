@@ -15,18 +15,29 @@ function Content() {
 
   let loadMore = () => {
     let currentPage = movie.page + 1;
-    fetch(
-      `https://api.themoviedb.org/4/search/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&query=${state.movie.searchInfo}&page=${currentPage}`
-    )
-      .then((r) => r.json())
-      .then((r) => {
-        r.results.map((item) => movieList.push(item));
-        setMovie(r);
-      });
+    if (state.movie.genresLoadMore) {
+      fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${state.movie.genresIds}`
+      )
+        .then((r) => r.json())
+        .then((r) => {
+          r.results.map((item) => movieList.push(item));
+          setMovie(r);
+        });
+    } else {
+      fetch(
+        `https://api.themoviedb.org/4/search/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&query=${state.movie.searchInfo}&page=${currentPage}`
+      )
+        .then((r) => r.json())
+        .then((r) => {
+          r.results.map((item) => movieList.push(item));
+          setMovie(r);
+        });
+    }
   };
   return (
     <div className="container films">
-      {state.isLoading ? (
+      {state.movie.isLoading ? (
         <Preloader />
       ) : movieList !== undefined ? (
         <>

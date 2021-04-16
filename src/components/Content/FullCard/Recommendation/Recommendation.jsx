@@ -38,7 +38,24 @@ function Recommendation({ recommendation }) {
         <>
           <h3 className="recommendation__heading">Recommendations</h3>
           <div className="recommendation__wrap">
-            <Swiper spaceBetween={50} slidesPerView={3}>
+            <Swiper
+              spaceBetween={50}
+              breakpoints={{
+                200: {
+                  slidesPerView: 1,
+                },
+                400: {
+                  slidesPerView: 2,
+                },
+                768: {
+                  slidesPerView: 3,
+                },
+                1000: {
+                  slidesPerView: 4,
+                },
+              }}
+              slidesPerView={3}
+            >
               {similarData.map((item, index) => {
                 calcVoteAverage(index);
                 return (

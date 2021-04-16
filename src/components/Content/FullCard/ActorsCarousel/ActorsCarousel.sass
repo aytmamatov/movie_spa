@@ -2,13 +2,16 @@
   padding: 20px 0
   &__starring
     font-weight: 600
-    margin-bottom: 20px
+    margin-bottom: 5px
   &__box
     border-radius: 10px
     overflow: hidden
     box-shadow: 0px 0px 23px -10px rgba(0,0,0,0.92)
   &__photo
     border-radius: 10px 10px 0 0
+    @media ( max-width: 768px)
+      max-height: 270px
+      width: 100%
   &__inner
     padding: 10px
     text-align: center

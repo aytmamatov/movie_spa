@@ -13,11 +13,15 @@
   &__movie
     display: flex
     align-items: center
+    @media ( max-width: 768px)
+      flex-direction: column
   &__inner
     font-family: 'Montserrat', sans-serif
     position: relative
     z-index: 2
     color: #fff
+    @media ( max-width: 768px)
+      text-align: center
   &__heading
     font-weight: 700
   &__poster
@@ -35,6 +39,12 @@
       width: 100%
       height: 100%
       background-color: rgba(0, 0, 0, .3 )
+    @media ( max-width: 768px)
+      margin-right: 0
+      min-width: auto
+      margin-bottom: 15px
+      & img
+        max-height: 400px
   &__facts
     margin-bottom: 20px
   &__release
@@ -54,12 +64,16 @@
     list-style-type: none
     margin-top: 20px
   &__add_to_favorites
-    cursor: pointer
+    color: #fff
     padding: 5px 20px
     font-weight: 500
-    display: inline-block
     border-radius: 10px
     background: rgb(3,37,65 )
+    &:active, &:hover
+      color: #fff
+  &__disabled
+    pointer-events: none
+    opacity: .65
   &__overview
     font-weight: 700
   &__text

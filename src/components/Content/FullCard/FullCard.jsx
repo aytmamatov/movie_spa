@@ -15,6 +15,9 @@ function FullCard() {
   const [isLoadingRecommendation, setisLoadingRecommendation] = useState(true);
   const [movieActors, setMovieActors] = useState([]);
   const [recommendation, setRecommendation] = useState({});
+  const arrMoviesId = state.favoritesMovies.map((item) => item.id);
+  const includesArrFavorites = arrMoviesId.includes(movieState.id);
+
   let { id } = useParams();
   let releaseDateYear, releaseDate, genres, hourRuntime, minuteRuntime;
   if (Object.keys(movieState).length > 0) {
@@ -69,19 +72,16 @@ function FullCard() {
       });
   };
   let addToFavorites = (e) => {
-    e.preventDefault();
-    let sendRequest = () => (dispatch) => {
-      dispatch({ type: "ADD-TO-FAVORITES", favorites: movieState });
+    e.preventDefault()
+    let sendRequest = (data) => (dispatch) => {
+      dispatch({ type: "ADD-TO-FAVORITES", favorites: data });
     };
     if (state.favoritesMovies.length > 0) {
-      state.favoritesMovies.map((item) => {
-        if (item.id != movieState.id) {
-          dispatch(sendRequest());
-        }
-      });
+      if (!includesArrFavorites) {
+        dispatch(sendRequest(movieState));
+      }
     } else {
-      console.log("Only first");
-      dispatch(sendRequest());
+      dispatch(sendRequest(movieState));
     }
   };
   useEffect(() => {
@@ -150,14 +150,14 @@ function FullCard() {
                       {movieState.overview}
                     </span>
                   </div>
-                  <ul className="fullCard__actions">
-                    <li
+                  <div className="fullCard__actions">
+                    <button
                       onClick={addToFavorites}
-                      className="fullCard__add_to_favorites"
+                      className={`btn fullCard__add_to_favorites ${!includesArrFavorites ? '' : 'fullCard__disabled'}`}
                     >
                       Add to favorites
-                    </li>
-                  </ul>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

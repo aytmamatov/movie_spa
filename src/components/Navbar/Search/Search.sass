@@ -10,21 +10,30 @@
     cursor: pointer
     z-index: 2
 .genres
-  transition: .2s
-  position: absolute
-  top: -100%
-  left: 0
-  &-active
-    display: flex
-    align-items: center
-    flex-direction: column
-    transition: .2s
-    top: 0
-    height: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+  &__wrap
     width: 100%
-    background: #fff
+    display: flex
+    flex-wrap: wrap
+    margin-bottom: 20px
   &__item
+    cursor: pointer
     padding: 5px 10px
     border-radius: 20px
+    background: #fff
+    border: 1px solid rgba(3,37,65,1 )
+    color: rgba(3,37,65,1 )
+    margin: 0 5px 5px 0
+    &-active
+      background: rgba(3,37,65,1 )
+      color: #fff
+  &__find
+    padding: 8px 20px
     background: rgba(3,37,65,1 )
     color: #fff
+    border-radius: 10px
+    margin-bottom: 20px
+    &:hover
+      color: #fff

@@ -1,21 +1,21 @@
 let initialState = {
-  favoritesMovies: [],
+  favoritesMovies: []
 };
 const favoritesReducers = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD-TO-FAVORITES":
+    case 'ADD-TO-FAVORITES':
       const favorites_copy = [];
       favorites_copy.push(action.favorites);
       return {
         ...state,
-        favoritesMovies: [...state.favoritesMovies, ...favorites_copy],
+        favoritesMovies: [...state.favoritesMovies, ...favorites_copy]
       };
-    case "REMOVE-CARD":
+    case 'REMOVE-CARD':
       const favoritesRemoveCard = [...state.favoritesMovies];
       favoritesRemoveCard.splice(action.index, 1);
       return {
         ...state,
-        favoritesMovies: [...favoritesRemoveCard],
+        favoritesMovies: [...favoritesRemoveCard]
       };
     default:
       return state;

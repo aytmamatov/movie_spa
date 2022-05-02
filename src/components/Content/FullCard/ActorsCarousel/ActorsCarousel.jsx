@@ -1,7 +1,7 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper.scss";
-import "./ActorsCarousel.sass";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper.scss';
+import './ActorsCarousel.sass';
 
 function ActorsCarousel({ actors }) {
   return (
@@ -11,17 +11,17 @@ function ActorsCarousel({ actors }) {
         spaceBetween={50}
         breakpoints={{
           200: {
-            slidesPerView: 1,
+            slidesPerView: 1
           },
           400: {
-            slidesPerView: 2,
+            slidesPerView: 2
           },
           768: {
-            slidesPerView: 3,
+            slidesPerView: 3
           },
           1000: {
-            slidesPerView: 4,
-          },
+            slidesPerView: 4
+          }
         }}
       >
         {actors.map((item) => {
@@ -34,9 +34,7 @@ function ActorsCarousel({ actors }) {
               />
               <div className="actors-carousel__inner">
                 <span className="actors-carousel__actor">{item.name}</span>
-                <span className="actors-carousel__character">
-                  {item.character}
-                </span>
+                <span className="actors-carousel__character">{item.character}</span>
               </div>
             </SwiperSlide>
           );

@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Card.sass";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Card.sass';
 
 function Card({ movieData }) {
   return (
@@ -11,7 +11,7 @@ function Card({ movieData }) {
           src={
             movieData.poster_path !== null
               ? `https://image.tmdb.org/t/p/w500${movieData.poster_path}`
-              : "https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg"
+              : 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'
           }
           alt="poster"
         />

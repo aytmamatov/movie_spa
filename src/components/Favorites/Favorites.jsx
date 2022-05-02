@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import "./Favorites.sass";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import './Favorites.sass';
 
 function Favorites() {
   const state = useSelector((state) => state.favorites);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   let removeCard = (index) => {
-    dispatch({type: 'REMOVE-CARD', index})
+    dispatch({ type: 'REMOVE-CARD', index });
   };
   return (
     <div className="container">

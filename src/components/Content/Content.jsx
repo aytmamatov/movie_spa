@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Preloader from "../UI/Preloader/Preloader";
-import Card from "./Card/Card";
-import "./Content.sass";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import Preloader from '../UI/Preloader/Preloader';
+import Card from './Card/Card';
+import './Content.sass';
 
 function Content() {
   const state = useSelector((state) => state);

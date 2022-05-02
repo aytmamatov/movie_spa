@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import Preloader from "../../UI/Preloader/Preloader";
-import ActorsCarousel from "./ActorsCarousel/ActorsCarousel";
-import "./FullCard.sass";
-import Recommendation from "./Recommendation/Recommendation";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import Preloader from '../../UI/Preloader/Preloader';
+import ActorsCarousel from './ActorsCarousel/ActorsCarousel';
+import './FullCard.sass';
+import Recommendation from './Recommendation/Recommendation';
 
 function FullCard() {
   const state = useSelector((state) => state.favorites);
@@ -23,23 +23,21 @@ function FullCard() {
   if (Object.keys(movieState).length > 0) {
     let date = movieState.release_date;
     releaseDateYear = date.slice(0, 4);
-    let arrReleaseDate = date.split("-");
-    let rearrangeArr = ([
+    let arrReleaseDate = date.split('-');
+    let rearrangeArr = ([arrReleaseDate[2], arrReleaseDate[1], arrReleaseDate[0]] = [
       arrReleaseDate[2],
       arrReleaseDate[1],
-      arrReleaseDate[0],
-    ] = [arrReleaseDate[2], arrReleaseDate[1], arrReleaseDate[0]]);
-    releaseDate = rearrangeArr.join("/");
+      arrReleaseDate[0]
+    ]);
+    releaseDate = rearrangeArr.join('/');
     let genresArr = movieState.genres.map((item) => item.name);
-    genres = genresArr.join(", ");
+    genres = genresArr.join(', ');
     let currentRuntime = parseInt(movieState.runtime);
     hourRuntime = Math.floor(currentRuntime / 60);
     minuteRuntime = currentRuntime - hourRuntime * 60;
   }
   let asyncCurrentMovie = () => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=c81dbb52630c695069ceb9c73e137dc2`
-    )
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=c81dbb52630c695069ceb9c73e137dc2`)
       .then((r) => r.json())
       .then((r) => {
         setMovieState(r);
@@ -48,9 +46,7 @@ function FullCard() {
       });
   };
   let requestMovieActors = () => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}/casts?api_key=c81dbb52630c695069ceb9c73e137dc2`
-    )
+    fetch(`https://api.themoviedb.org/3/movie/${id}/casts?api_key=c81dbb52630c695069ceb9c73e137dc2`)
       .then((r) => r.json())
       .then((r) => {
         r.cast.map((item, i) => {
@@ -72,9 +68,9 @@ function FullCard() {
       });
   };
   let addToFavorites = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let sendRequest = (data) => (dispatch) => {
-      dispatch({ type: "ADD-TO-FAVORITES", favorites: data });
+      dispatch({ type: 'ADD-TO-FAVORITES', favorites: data });
     };
     if (state.favoritesMovies.length > 0) {
       if (!includesArrFavorites) {
@@ -100,14 +96,14 @@ function FullCard() {
             className={`fullCard__inner ${
               Object.keys(movieState).length > 0
                 ? movieState.backdrop_path !== undefined
-                  ? "fullCard-decoration"
-                  : ""
-                : ""
+                  ? 'fullCard-decoration'
+                  : ''
+                : ''
             }`}
             style={
               Object.keys(movieState).length > 0
                 ? {
-                    background: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movieState.backdrop_path}) no-repeat 0 0 / cover`,
+                    background: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movieState.backdrop_path}) no-repeat 0 0 / cover`
                   }
                 : null
             }
@@ -119,7 +115,7 @@ function FullCard() {
                     src={
                       movieState.poster_path !== null
                         ? `https://image.tmdb.org/t/p/w500${movieState.poster_path}`
-                        : "https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg"
+                        : 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'
                     }
                     alt=""
                     className="fullCard__img"
@@ -128,10 +124,7 @@ function FullCard() {
                 <div className="fullCard__inner">
                   <h2 className="fullCard__heading">
                     {movieState.title}
-                    <span className="fullCard__release-date">
-                      {" "}
-                      ({releaseDateYear})
-                    </span>
+                    <span className="fullCard__release-date"> ({releaseDateYear})</span>
                   </h2>
                   <div className="fullCard__facts">
                     <span className="fullCard__release">{releaseDate}</span>
@@ -140,20 +133,18 @@ function FullCard() {
                       {hourRuntime}h {minuteRuntime}m
                     </span>
                   </div>
-                  <span className="fullCard__tagline">
-                    {movieState.tagline}
-                  </span>
+                  <span className="fullCard__tagline">{movieState.tagline}</span>
 
                   <div className="fullCard__group">
                     <h4 className="fullCard__overview">Overview</h4>
-                    <span className="fullCard__text">
-                      {movieState.overview}
-                    </span>
+                    <span className="fullCard__text">{movieState.overview}</span>
                   </div>
                   <div className="fullCard__actions">
                     <button
                       onClick={addToFavorites}
-                      className={`btn fullCard__add_to_favorites ${!includesArrFavorites ? '' : 'fullCard__disabled'}`}
+                      className={`btn fullCard__add_to_favorites ${
+                        !includesArrFavorites ? '' : 'fullCard__disabled'
+                      }`}
                     >
                       Add to favorites
                     </button>
@@ -163,12 +154,8 @@ function FullCard() {
             </div>
           </div>
           <div className="container">
-            {isLoadingActors ? null : (
-              <ActorsCarousel actors={movieActors} key="ActorsCarousel" />
-            )}
-            {isLoadingRecommendation ? null : (
-              <Recommendation recommendation={recommendation} />
-            )}
+            {isLoadingActors ? null : <ActorsCarousel actors={movieActors} key="ActorsCarousel" />}
+            {isLoadingRecommendation ? null : <Recommendation recommendation={recommendation} />}
           </div>
         </>
       )}

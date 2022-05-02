@@ -1,11 +1,8 @@
-import React from "react";
+import React from 'react';
 
 function Chip({ label, handleAdd, active }) {
   return (
-    <div
-      className={`genres__item ${active ? "genres__item-active" : ""}`}
-      onClick={handleAdd}
-    >
+    <div className={`genres__item ${active ? 'genres__item-active' : ''}`} onClick={handleAdd}>
       {label}
     </div>
   );

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "./Recommendation.sass";
-import "swiper/swiper.scss";
+import React, { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import './Recommendation.sass';
+import 'swiper/swiper.scss';
 
-import "./Recommendation.sass";
+import './Recommendation.sass';
 function Recommendation({ recommendation }) {
   const [similarData, setSimilarData] = useState([]);
   const [isLoadingSimilarData, setisLoadingSimilarData] = useState(false);
@@ -42,17 +42,17 @@ function Recommendation({ recommendation }) {
               spaceBetween={50}
               breakpoints={{
                 200: {
-                  slidesPerView: 1,
+                  slidesPerView: 1
                 },
                 400: {
-                  slidesPerView: 2,
+                  slidesPerView: 2
                 },
                 768: {
-                  slidesPerView: 3,
+                  slidesPerView: 3
                 },
                 1000: {
-                  slidesPerView: 4,
-                },
+                  slidesPerView: 4
+                }
               }}
               slidesPerView={3}
             >
@@ -67,12 +67,8 @@ function Recommendation({ recommendation }) {
                       />
                     </div>
                     <div className="recommendation__inner">
-                      <span className="recommendation__title">
-                        {item.title}
-                      </span>
-                      <span className="recommendation__vote_average">
-                        {average[index]}%
-                      </span>
+                      <span className="recommendation__title">{item.title}</span>
+                      <span className="recommendation__vote_average">{average[index]}%</span>
                     </div>
                   </SwiperSlide>
                 );

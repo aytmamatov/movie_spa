@@ -21,6 +21,7 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'react/no-unstable-nested-components': [1, { allowAsProps: true }]
+    'react/no-unstable-nested-components': [1, { allowAsProps: true }],
+    'default-param-last': 'off'
   }
 };

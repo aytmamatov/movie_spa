@@ -3,18 +3,17 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import './Recommendation.sass';
 import 'swiper/swiper.scss';
 
-import './Recommendation.sass';
 function Recommendation({ recommendation }) {
   const [similarData, setSimilarData] = useState([]);
   const [isLoadingSimilarData, setisLoadingSimilarData] = useState(false);
-  let average = [];
+  const average = [];
 
-  let calcVoteAverage = (index) => {
-    let countVoteAverage = similarData[index].vote_average * 10;
+  const calcVoteAverage = (index) => {
+    const countVoteAverage = similarData[index].vote_average * 10;
     average.push(countVoteAverage);
   };
   useEffect(async () => {
-    let promises = [];
+    const promises = [];
     recommendation.results.map((item) => {
       promises.push(
         fetch(
@@ -54,8 +53,7 @@ function Recommendation({ recommendation }) {
                   slidesPerView: 4
                 }
               }}
-              slidesPerView={3}
-            >
+              slidesPerView={3}>
               {similarData.map((item, index) => {
                 calcVoteAverage(index);
                 return (

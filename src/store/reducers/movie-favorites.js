@@ -1,4 +1,4 @@
-let initialState = {
+const initialState = {
   favoritesMovies: []
 };
 const favoritesReducers = (state = initialState, action) => {

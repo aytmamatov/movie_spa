@@ -18,25 +18,29 @@ function FullCard() {
   const arrMoviesId = state.favoritesMovies.map((item) => item.id);
   const includesArrFavorites = arrMoviesId.includes(movieState.id);
 
-  let { id } = useParams();
-  let releaseDateYear, releaseDate, genres, hourRuntime, minuteRuntime;
+  const { id } = useParams();
+  let releaseDateYear;
+  let releaseDate;
+  let genres;
+  let hourRuntime;
+  let minuteRuntime;
   if (Object.keys(movieState).length > 0) {
-    let date = movieState.release_date;
+    const date = movieState.release_date;
     releaseDateYear = date.slice(0, 4);
-    let arrReleaseDate = date.split('-');
-    let rearrangeArr = ([arrReleaseDate[2], arrReleaseDate[1], arrReleaseDate[0]] = [
+    const arrReleaseDate = date.split('-');
+    const rearrangeArr = ([arrReleaseDate[2], arrReleaseDate[1], arrReleaseDate[0]] = [
       arrReleaseDate[2],
       arrReleaseDate[1],
       arrReleaseDate[0]
     ]);
     releaseDate = rearrangeArr.join('/');
-    let genresArr = movieState.genres.map((item) => item.name);
+    const genresArr = movieState.genres.map((item) => item.name);
     genres = genresArr.join(', ');
-    let currentRuntime = parseInt(movieState.runtime);
+    const currentRuntime = parseInt(movieState.runtime);
     hourRuntime = Math.floor(currentRuntime / 60);
     minuteRuntime = currentRuntime - hourRuntime * 60;
   }
-  let asyncCurrentMovie = () => {
+  const asyncCurrentMovie = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=c81dbb52630c695069ceb9c73e137dc2`)
       .then((r) => r.json())
       .then((r) => {
@@ -45,7 +49,7 @@ function FullCard() {
         // dispatch({ type: "CURRENT-MOVIE", current_movie: "Hello" });
       });
   };
-  let requestMovieActors = () => {
+  const requestMovieActors = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}/casts?api_key=c81dbb52630c695069ceb9c73e137dc2`)
       .then((r) => r.json())
       .then((r) => {
@@ -57,7 +61,7 @@ function FullCard() {
       })
       .then(() => setisLoadingActors(false));
   };
-  let requestSimilarMovies = () => {
+  const requestSimilarMovies = () => {
     fetch(
       `https://api.themoviedb.org/3/movie/${id}/similar?api_key=c81dbb52630c695069ceb9c73e137dc2`
     )
@@ -67,9 +71,9 @@ function FullCard() {
         setisLoadingRecommendation(false);
       });
   };
-  let addToFavorites = (e) => {
+  const addToFavorites = (e) => {
     e.preventDefault();
-    let sendRequest = (data) => (dispatch) => {
+    const sendRequest = (data) => (dispatch) => {
       dispatch({ type: 'ADD-TO-FAVORITES', favorites: data });
     };
     if (state.favoritesMovies.length > 0) {
@@ -106,8 +110,7 @@ function FullCard() {
                     background: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movieState.backdrop_path}) no-repeat 0 0 / cover`
                   }
                 : null
-            }
-          >
+            }>
             <div className="container">
               <div className="fullCard__movie">
                 <div className="fullCard__poster">
@@ -144,8 +147,7 @@ function FullCard() {
                       onClick={addToFavorites}
                       className={`btn fullCard__add_to_favorites ${
                         !includesArrFavorites ? '' : 'fullCard__disabled'
-                      }`}
-                    >
+                      }`}>
                       Add to favorites
                     </button>
                   </div>

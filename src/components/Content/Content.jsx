@@ -13,8 +13,8 @@ function Content() {
     setMovieList(state.movie.results);
   }, [state]);
 
-  let loadMore = () => {
-    let currentPage = movie.page + 1;
+  const loadMore = () => {
+    const currentPage = movie.page + 1;
     if (state.movie.genresLoadMore) {
       fetch(
         `https://api.themoviedb.org/3/discover/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${state.movie.genresIds}`

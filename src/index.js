@@ -9,6 +9,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import favoritesReducers from './store/reducers/movie-favorites';
 import searchReducer from './store/reducers/movie-reducer';
+
 const rootReducer = combineReducers({
   movie: searchReducer,
   favorites: favoritesReducers

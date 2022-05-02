@@ -1,4 +1,4 @@
-let initialState = {
+const initialState = {
   isLoading: false
 };
 const searchReducer = (state = initialState, action) => {

@@ -5,7 +5,7 @@ import './Favorites.sass';
 function Favorites() {
   const state = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
-  let removeCard = (index) => {
+  const removeCard = (index) => {
     dispatch({ type: 'REMOVE-CARD', index });
   };
   return (
@@ -28,8 +28,7 @@ function Favorites() {
                   <div className="favorites__details">
                     <button
                       onClick={() => removeCard(card.index)}
-                      className="btn btn-danger favorites__remove"
-                    >
+                      className="btn btn-danger favorites__remove">
                       Remove
                     </button>
                   </div>

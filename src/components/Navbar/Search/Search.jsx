@@ -8,8 +8,8 @@ import './Search.sass';
 function Search() {
   const dispatch = useDispatch();
   const history = useHistory();
-  let api_key = 'c81dbb52630c695069ceb9c73e137dc2';
-  let userEmpty = {
+  const api_key = 'c81dbb52630c695069ceb9c73e137dc2';
+  const userEmpty = {
     search: '',
     films: '',
     currentPage: ''
@@ -17,7 +17,7 @@ function Search() {
   const [state, setState] = useState(userEmpty);
   const [genresState, setGenresState] = useState({});
   const [genresIsLoading, setGenresIsLoading] = useState(true);
-  let inputHandler = (e) => {
+  const inputHandler = (e) => {
     setState((prev) => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -40,13 +40,13 @@ function Search() {
 
   const requestGenres = () => {
     dispatch({ type: 'SEARCH-IS-LOADING', isLoading: true });
-    let ids = [];
+    const ids = [];
     [...genresState].map((g) => {
       if (g.active) {
         ids.push(g.id);
       }
     });
-    let apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${ids}`;
+    const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${ids}`;
     fetch(apiUrl)
       .then((r) => r.json())
       .then((r) => {
@@ -61,7 +61,7 @@ function Search() {
       });
   };
 
-  let submitForm = (e) => {
+  const submitForm = (e) => {
     dispatch({ type: 'SEARCH-IS-LOADING', isLoading: true });
     history.push('/');
     e.preventDefault();
@@ -79,9 +79,9 @@ function Search() {
       });
   };
   const handleAdd = (genre, index) => {
-    let copyArr = genresState.map((item) => {
+    const copyArr = genresState.map((item) => {
       if (item.id === genre.id) {
-        let copyGenre = { ...item };
+        const copyGenre = { ...item };
         copyGenre.active = !copyGenre.active;
         return copyGenre;
       }

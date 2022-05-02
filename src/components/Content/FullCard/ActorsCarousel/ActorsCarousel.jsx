@@ -22,8 +22,7 @@ function ActorsCarousel({ actors }) {
           1000: {
             slidesPerView: 4
           }
-        }}
-      >
+        }}>
         {actors.map((item) => {
           return (
             <SwiperSlide key={item.id} className="actors-carousel__box">

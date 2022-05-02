@@ -21,7 +21,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "lint:fix": "eslint --fix",
+    "lint:fix": "eslint --fix --ext .js,.jsx .",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "start": "react-scripts start",
     "build": "react-scripts build",

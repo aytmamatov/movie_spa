@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router';
+import { Route, Routes } from 'react-router-dom';
 import Content from './components/Content/Content';
 import FullCard from './components/Content/FullCard/FullCard';
 import Favorites from './components/Favorites/Favorites';
@@ -11,11 +11,11 @@ function App() {
     <div>
       <Header />
       <Search />
-      <Switch>
+      <Routes>
         <Route exact path="/" component={() => <Content />} />
         <Route exact path="/fullcard/:id" component={() => <FullCard />} />
         <Route exact path="/favorites" component={() => <Favorites />} />
-      </Switch>
+      </Routes>
     </div>
   );
 }

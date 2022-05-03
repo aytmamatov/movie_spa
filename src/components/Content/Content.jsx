@@ -5,7 +5,7 @@ import Card from './Card/Card';
 import './Content.sass';
 
 function Content() {
-  const state = useSelector((state) => state);
+  const state = useSelector((currentState) => currentState);
   const [movieList, setMovieList] = useState([]);
   const [movie, setMovie] = useState({});
   useEffect(() => {
@@ -42,8 +42,8 @@ function Content() {
       ) : movieList !== undefined ? (
         <>
           <div className="films__cards">
-            {movieList.map((movie) => {
-              return <Card key={movie.id} movieData={movie} />;
+            {movieList.map((currentMovie) => {
+              return <Card key={currentMovie.id} movieData={currentMovie} />;
             })}
           </div>
           <button className="btn btn-primary" onClick={loadMore}>

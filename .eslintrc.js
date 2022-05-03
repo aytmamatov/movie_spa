@@ -19,9 +19,15 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    camelcase: 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/no-unstable-nested-components': [1, { allowAsProps: true }],
-    'default-param-last': 'off'
+    'default-param-last': 'off',
+    'no-unused-vars': 'warn',
+    'no-nested-ternary': 'off',
+    'react/button-has-type': 'off',
+    'import/no-unresolved': 'off',
+    'import/no-extraneous-dependencies': 'off'
   }
 };

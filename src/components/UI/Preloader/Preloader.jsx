@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import './Preloader.sass';
+import 'src/components/UI/Preloader/Preloader.sass';
 
 function Preloader({ title }) {
   return (

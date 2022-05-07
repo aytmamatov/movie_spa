@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Card.sass';
+import 'src/components/Content/Card/Card.sass';
 
 function Card({ movieData }) {
   return (

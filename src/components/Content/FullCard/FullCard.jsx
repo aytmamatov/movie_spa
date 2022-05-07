@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { API_KEY } from '../../../config';
-import Preloader from '../../UI/Preloader/Preloader';
-import './FullCard.sass';
+import 'src/components/Content/FullCard/FullCard.sass';
+import Preloader from 'src/components/UI/Preloader/Preloader';
+import { API_KEY } from 'src/config';
 
 function FullCard() {
   const state = useSelector((currentState) => currentState.favorites);

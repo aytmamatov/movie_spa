@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Preloader from '../UI/Preloader/Preloader';
-import Card from './Card/Card';
-import './Content.sass';
-import { API_KEY } from '../../config/index';
+import Card from 'src/components/Content/Card/Card';
+import 'src/components/Content/Content.sass';
+import Preloader from 'src/components/UI/Preloader/Preloader';
+import { API_KEY } from 'src/config';
 
 function Content() {
   const state = useSelector((currentState) => currentState);

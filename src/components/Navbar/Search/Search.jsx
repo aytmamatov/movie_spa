@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { API_KEY } from '../../../config';
-import Preloader from '../../UI/Preloader/Preloader';
-import Chip from './Chip/Chip';
-import './Search.sass';
+import Chip from 'src/components/Navbar/Search/Chip/Chip';
+import 'src/components/Navbar/Search/Search.sass';
+import Preloader from 'src/components/UI/Preloader/Preloader';
+import { API_KEY } from 'src/config';
 
 const GENRE_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
 

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { API_KEY } from '../../../config';
 import Preloader from '../../UI/Preloader/Preloader';
 import ActorsCarousel from './ActorsCarousel/ActorsCarousel';
 import './FullCard.sass';
 import Recommendation from './Recommendation/Recommendation';
-import { API_KEY } from '../../../config';
 
 function FullCard() {
-  const state = useSelector((state) => state.favorites);
+  const state = useSelector((currentState) => currentState.favorites);
   const dispatch = useDispatch();
   const [movieState, setMovieState] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingActors, setisLoadingActors] = useState(true);
   const [isLoadingRecommendation, setisLoadingRecommendation] = useState(true);
-  const [movieActors, setMovieActors] = useState([]);
+  const [movieActors] = useState([]);
   const [recommendation, setRecommendation] = useState({});
   const arrMoviesId = state.favoritesMovies.map((item) => item.id);
   const includesArrFavorites = arrMoviesId.includes(movieState.id);
@@ -28,15 +28,9 @@ function FullCard() {
   if (Object.keys(movieState).length > 0) {
     const date = movieState.release_date;
     releaseDateYear = date.slice(0, 4);
-    const arrReleaseDate = date.split('-');
-    const rearrangeArr = ([arrReleaseDate[2], arrReleaseDate[1], arrReleaseDate[0]] = [
-      arrReleaseDate[2],
-      arrReleaseDate[1],
-      arrReleaseDate[0]
-    ]);
-    releaseDate = rearrangeArr.join('/');
     const genresArr = movieState.genres.map((item) => item.name);
     genres = genresArr.join(', ');
+    // eslint-disable-next-line radix
     const currentRuntime = parseInt(movieState.runtime);
     hourRuntime = Math.floor(currentRuntime / 60);
     minuteRuntime = currentRuntime - hourRuntime * 60;
@@ -72,8 +66,8 @@ function FullCard() {
   };
   const addToFavorites = (e) => {
     e.preventDefault();
-    const sendRequest = (data) => (dispatch) => {
-      dispatch({ type: 'ADD-TO-FAVORITES', favorites: data });
+    const sendRequest = (data) => (dispatchFavorites) => {
+      dispatchFavorites({ type: 'ADD-TO-FAVORITES', favorites: data });
     };
     if (state.favoritesMovies.length > 0) {
       if (!includesArrFavorites) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './Recommendation.sass';
 import 'swiper/swiper.scss';
+import { API_KEY } from '../../../../config/index';
 
 function Recommendation({ recommendation }) {
   const [similarData, setSimilarData] = useState([]);
@@ -16,9 +17,7 @@ function Recommendation({ recommendation }) {
     const promises = [];
     recommendation.results.map((item) => {
       promises.push(
-        fetch(
-          `https://api.themoviedb.org/3/movie/${item.id}?api_key=c81dbb52630c695069ceb9c73e137dc2`
-        )
+        fetch(`https://api.themoviedb.org/3/movie/${item.id}?api_key=${API_KEY}`)
           .then((r) => r.json())
           .then((r) => {
             if (r.backdrop_path !== null) {

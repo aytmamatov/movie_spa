@@ -4,9 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import Preloader from '../../UI/Preloader/Preloader';
 import Chip from './Chip/Chip';
 import './Search.sass';
+import { API_KEY } from '../../../config';
 
-const API_KEY = 'c81dbb52630c695069ceb9c73e137dc2';
-const GENRE_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=c81dbb52630c695069ceb9c73e137dc2`;
+const GENRE_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
 
 function Search() {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function Search() {
         ids.push(g.id);
       }
     });
-    const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${ids}`;
+    const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${ids}`;
     fetch(apiUrl)
       .then((r) => r.json())
       .then((r) => {

@@ -28,6 +28,7 @@ module.exports = {
     'no-nested-ternary': 'off',
     'react/button-has-type': 'off',
     'import/no-unresolved': 'off',
-    'import/no-extraneous-dependencies': 'off'
+    'import/no-extraneous-dependencies': 'off',
+    'import/prefer-default-export': 'off'
   }
 };

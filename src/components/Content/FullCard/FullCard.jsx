@@ -5,6 +5,7 @@ import Preloader from '../../UI/Preloader/Preloader';
 import ActorsCarousel from './ActorsCarousel/ActorsCarousel';
 import './FullCard.sass';
 import Recommendation from './Recommendation/Recommendation';
+import { API_KEY } from '../../../config';
 
 function FullCard() {
   const state = useSelector((state) => state.favorites);
@@ -41,7 +42,7 @@ function FullCard() {
     minuteRuntime = currentRuntime - hourRuntime * 60;
   }
   const asyncCurrentMovie = () => {
-    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=c81dbb52630c695069ceb9c73e137dc2`)
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`)
       .then((r) => r.json())
       .then((r) => {
         setMovieState(r);
@@ -50,10 +51,10 @@ function FullCard() {
       });
   };
   const requestMovieActors = () => {
-    fetch(`https://api.themoviedb.org/3/movie/${id}/casts?api_key=c81dbb52630c695069ceb9c73e137dc2`)
+    fetch(`https://api.themoviedb.org/3/movie/${id}/casts?api_key=${API_KEY}`)
       .then((r) => r.json())
       .then((r) => {
-        r.cast.map((item, i) => {
+        r.cast.forEach((item, i) => {
           if (i <= 10) {
             movieActors.push(item);
           }
@@ -62,9 +63,7 @@ function FullCard() {
       .then(() => setisLoadingActors(false));
   };
   const requestSimilarMovies = () => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}/similar?api_key=c81dbb52630c695069ceb9c73e137dc2`
-    )
+    fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}`)
       .then((r) => r.json())
       .then((r) => {
         setRecommendation(r);

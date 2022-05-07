@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Preloader from '../UI/Preloader/Preloader';
 import Card from './Card/Card';
 import './Content.sass';
+import { API_KEY } from '../../config/index';
 
 function Content() {
   const state = useSelector((currentState) => currentState);
@@ -17,7 +18,7 @@ function Content() {
     const currentPage = movie.page + 1;
     if (state.movie.genresLoadMore) {
       fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${state.movie.genresIds}`
+        `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${currentPage}&with_genres=${state.movie.genresIds}`
       )
         .then((r) => r.json())
         .then((r) => {
@@ -26,7 +27,7 @@ function Content() {
         });
     } else {
       fetch(
-        `https://api.themoviedb.org/4/search/movie?api_key=c81dbb52630c695069ceb9c73e137dc2&query=${state.movie.searchInfo}&page=${currentPage}`
+        `https://api.themoviedb.org/4/search/movie?api_key=${API_KEY}&query=${state.movie.searchInfo}&page=${currentPage}`
       )
         .then((r) => r.json())
         .then((r) => {

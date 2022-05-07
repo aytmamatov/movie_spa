@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import './Recommendation.sass';
 import 'swiper/swiper.scss';
 import { API_KEY } from '../../../../config/index';
+import './Recommendation.sass';
 
 function Recommendation({ recommendation }) {
-  const [similarData, setSimilarData] = useState([]);
+  const [similarData] = useState([]);
   const [isLoadingSimilarData, setisLoadingSimilarData] = useState(false);
   const average = [];
 
@@ -15,7 +16,7 @@ function Recommendation({ recommendation }) {
   };
   useEffect(async () => {
     const promises = [];
-    recommendation.results.map((item) => {
+    recommendation.results.forEach((item) => {
       promises.push(
         fetch(`https://api.themoviedb.org/3/movie/${item.id}?api_key=${API_KEY}`)
           .then((r) => r.json())
@@ -79,5 +80,17 @@ function Recommendation({ recommendation }) {
     </div>
   );
 }
+
+Recommendation.propTypes = {
+  recommendation: PropTypes.shape({
+    results: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        backdrop_path: PropTypes.string,
+        title: PropTypes.string
+      })
+    )
+  }).isRequired
+};
 
 export default Recommendation;

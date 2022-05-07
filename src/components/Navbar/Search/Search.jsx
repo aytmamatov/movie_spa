@@ -30,13 +30,13 @@ function Search() {
     fetch(GENRE_URL)
       .then((r) => r.json())
       .then((r) => {
-        r.genres.map((item) => {
+        const transformedGenres = r.genres.map((item) => {
           return {
             ...item,
             active: false
           };
         });
-        setGenresState(r.genres);
+        setGenresState(transformedGenres);
         setGenresIsLoading(false);
       });
   }

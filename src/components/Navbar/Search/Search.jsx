@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { getDataFromServer } from 'src/adapters/xhr';
 import Chip from 'src/components/Navbar/Search/Chip/Chip';
 import 'src/components/Navbar/Search/Search.sass';
 import Preloader from 'src/components/UI/Preloader/Preloader';
 import { API_KEY } from 'src/config';
 
-const GENRE_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
+const GENRE_URL = `genre/movie/list?api_key=${API_KEY}`;
 
 function Search() {
   const dispatch = useDispatch();
@@ -26,19 +27,15 @@ function Search() {
     }));
   };
 
-  function showGenres() {
-    fetch(GENRE_URL)
-      .then((r) => r.json())
-      .then((r) => {
-        const transformedGenres = r.genres.map((item) => {
-          return {
-            ...item,
-            active: false
-          };
-        });
-        setGenresState(transformedGenres);
-        setGenresIsLoading(false);
-      });
+  async function showGenres() {
+    const {
+      data: { genres }
+    } = await getDataFromServer(GENRE_URL);
+
+    const transformedGenres = genres.map((genre) => ({ ...genre, active: false }));
+    setGenresState(transformedGenres);
+
+    setGenresIsLoading(false);
   }
 
   useEffect(() => {

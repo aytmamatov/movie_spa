@@ -1,7 +1,14 @@
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: 'https://api.themoviedb.org/3/'
-});
+function returnAxiosInstance() {
+  return axios.create({
+    baseURL: process.env.REACT_APP_BASE_API_URL
+  });
+}
 
-export default api;
+function getDataFromServer(url) {
+  const currentAxios = returnAxiosInstance();
+  return currentAxios.get(url);
+}
+
+export { getDataFromServer };

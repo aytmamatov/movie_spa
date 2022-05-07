@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Favorites.sass';
 
 function Favorites() {
-  const state = useSelector((state) => state.favorites);
+  const state = useSelector((currentState) => currentState.favorites);
   const dispatch = useDispatch();
   const removeCard = (index) => {
     dispatch({ type: 'REMOVE-CARD', index });
@@ -13,7 +13,7 @@ function Favorites() {
       <h2 className="favorites__heading">Favorites</h2>
       <div className="favorites__wrap">
         {state.favoritesMovies.length > 0 ? (
-          state.favoritesMovies.map((card, index) => {
+          state.favoritesMovies.map((card) => {
             return (
               <div key={card.id} className="favorites__box">
                 <div className="favorites__poster">

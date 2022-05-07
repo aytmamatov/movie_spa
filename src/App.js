@@ -12,9 +12,9 @@ function App() {
       <Header />
       <Search />
       <Routes>
-        <Route exact path="/" component={() => <Content />} />
-        <Route exact path="/fullcard/:id" component={() => <FullCard />} />
-        <Route exact path="/favorites" component={() => <Favorites />} />
+        <Route path="/" element={<Content />} />
+        <Route path="/fullcard/:id" element={<FullCard />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
     </div>
   );

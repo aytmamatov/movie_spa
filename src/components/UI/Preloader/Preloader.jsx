@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import './Preloader.sass';
 
-function Preloader({ title = 'Loading Data', type = 'Bars', color = '#00BFFF', width = '60px' }) {
+function Preloader({ title = 'Loading Data' }) {
   return (
     <div className="preloader-wrap">
       Загружается
@@ -9,5 +10,9 @@ function Preloader({ title = 'Loading Data', type = 'Bars', color = '#00BFFF', w
     </div>
   );
 }
+
+Preloader.propTypes = {
+  title: PropTypes.string.isRequired
+};
 
 export default Preloader;

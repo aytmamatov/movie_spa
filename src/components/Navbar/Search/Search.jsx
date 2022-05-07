@@ -28,14 +28,16 @@ function Search() {
   };
 
   async function showGenres() {
-    const {
-      data: { genres }
-    } = await getDataFromServer(GENRE_URL);
+    try {
+      const {
+        data: { genres }
+      } = await getDataFromServer(GENRE_URL);
 
-    const transformedGenres = genres.map((genre) => ({ ...genre, active: false }));
-    setGenresState(transformedGenres);
-
-    setGenresIsLoading(false);
+      const transformedGenres = genres.map((genre) => ({ ...genre, active: false }));
+      setGenresState(transformedGenres);
+    } finally {
+      setGenresIsLoading(false);
+    }
   }
 
   useEffect(() => {

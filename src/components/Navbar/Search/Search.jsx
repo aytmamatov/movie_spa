@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_KEY } from '../../../config';
 import Preloader from '../../UI/Preloader/Preloader';
 import Chip from './Chip/Chip';
 import './Search.sass';
-import { API_KEY } from '../../../config';
 
 const GENRE_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
 
@@ -25,20 +25,25 @@ function Search() {
       [e.target.name]: e.target.value
     }));
   };
-  useEffect(() => {
-    showGenres();
-  }, []);
+
   function showGenres() {
     fetch(GENRE_URL)
       .then((r) => r.json())
       .then((r) => {
         r.genres.map((item) => {
-          return (item.active = false);
+          return {
+            ...item,
+            active: false
+          };
         });
         setGenresState(r.genres);
         setGenresIsLoading(false);
       });
   }
+
+  useEffect(() => {
+    showGenres();
+  }, []);
 
   const requestGenres = () => {
     dispatch({ type: 'SEARCH-IS-LOADING', isLoading: true });

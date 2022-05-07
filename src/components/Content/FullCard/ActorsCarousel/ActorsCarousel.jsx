@@ -2,6 +2,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import './ActorsCarousel.sass';
+import PropTypes from 'prop-types';
 
 function ActorsCarousel({ actors }) {
   return (
@@ -42,5 +43,14 @@ function ActorsCarousel({ actors }) {
     </div>
   );
 }
+
+ActorsCarousel.propTypes = {
+  actors: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string
+    })
+  ).isRequired
+};
 
 export default ActorsCarousel;

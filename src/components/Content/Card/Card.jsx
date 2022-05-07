@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Card.sass';
-import PropTypes from 'prop-types';
 
 function Card({ movieData }) {
   return (
@@ -30,8 +30,8 @@ function Card({ movieData }) {
 Card.propTypes = {
   movieData: PropTypes.shape({
     title: PropTypes.string,
-    id: PropTypes.string,
-    poster_path: PropTypes.number
+    id: PropTypes.number,
+    poster_path: PropTypes.string
   }).isRequired
 };
 

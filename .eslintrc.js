@@ -29,6 +29,7 @@ module.exports = {
     'react/button-has-type': 'off',
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
-    'import/prefer-default-export': 'off'
+    'import/prefer-default-export': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off'
   }
 };

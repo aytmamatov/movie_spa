@@ -8,7 +8,10 @@ import Preloader from 'src/components/UI/Preloader/Preloader';
 import { API_KEY } from 'src/config';
 
 const GENRE_URL = `genre/movie/list?api_key=${API_KEY}`;
+
 const returnSearchUrl = (search) => `search/movie?api_key=${API_KEY}&query=${search}`;
+const returnGenresUrl = (genresIds) =>
+  `discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genresIds}`;
 
 function Search() {
   const dispatch = useDispatch();
@@ -44,28 +47,27 @@ function Search() {
     showGenres();
   }, []);
 
-  const requestGenres = () => {
+  async function requestGenres() {
     dispatch({ type: 'SEARCH-IS-LOADING', isLoading: true });
-    const ids = [];
-    [...genresState].forEach((g) => {
-      if (g.active) {
-        ids.push(g.id);
-      }
-    });
-    const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${ids}`;
-    fetch(apiUrl)
-      .then((r) => r.json())
-      .then((r) => {
-        dispatch({
-          type: 'GET-MOVIES',
-          movie: r,
-          search: state.search,
-          genresLoadMore: true,
-          genresIds: [...ids]
-        });
-        dispatch({ type: 'SEARCH-IS-LOADING', isLoading: false });
+
+    const genresIds = [...genresState]
+      .map(({ active, id }) => (active ? id : null))
+      .filter(Boolean);
+
+    try {
+      const genresRequest = returnGenresUrl(genresIds);
+      const { data: movies } = await getDataFromServer(genresRequest);
+      dispatch({
+        type: 'GET-MOVIES',
+        movie: movies,
+        search: state.search,
+        genresLoadMore: true,
+        genresIds: [...genresIds]
       });
-  };
+    } finally {
+      dispatch({ type: 'SEARCH-IS-LOADING', isLoading: false });
+    }
+  }
 
   async function submitForm(e) {
     e.preventDefault();

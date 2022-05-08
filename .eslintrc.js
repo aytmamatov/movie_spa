@@ -36,7 +36,8 @@ module.exports = {
       {
         patterns: ['./*', '../*']
       }
-    ]
+    ],
+    'react/jsx-no-bind': 'off'
   },
   settings: {
     'import/resolver': {

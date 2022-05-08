@@ -5,7 +5,6 @@ import 'src/components/UI/Preloader/Preloader.sass';
 function Preloader({ title }) {
   return (
     <div className="preloader-wrap">
-      Загружается
       <h2>{title}</h2>
     </div>
   );
@@ -16,7 +15,7 @@ Preloader.propTypes = {
 };
 
 Preloader.defaultProps = {
-  title: 'Loading Data'
+  title: 'Loading...'
 };
 
 export default Preloader;

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { getDataFromServer } from 'src/adapters/xhr';
 import 'src/components/Content/FullCard/FullCard.sass';
 import Preloader from 'src/components/UI/Preloader/Preloader';
 import { API_KEY } from 'src/config';
+
+const returnMovieUrl = (movieId) => `https://api.themoviedb.org/3/movie/${movieId}`;
 
 function FullCard() {
   const state = useSelector((currentState) => currentState.favorites);
@@ -30,15 +33,18 @@ function FullCard() {
     hourRuntime = Math.floor(currentRuntime / 60);
     minuteRuntime = currentRuntime - hourRuntime * 60;
   }
-  const asyncCurrentMovie = () => {
-    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`)
-      .then((r) => r.json())
-      .then((r) => {
-        setMovieState(r);
-        setIsLoading(false);
-        // dispatch({ type: "CURRENT-MOVIE", current_movie: "Hello" });
-      });
-  };
+
+  async function getCurrentMovie() {
+    const currentMovieUrl = returnMovieUrl(id);
+    setIsLoading(true);
+    try {
+      const { data: movie } = await getDataFromServer(currentMovieUrl);
+      setMovieState(movie);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   const requestMovieActors = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}/casts?api_key=${API_KEY}`)
       .then((r) => r.json())
@@ -50,17 +56,19 @@ function FullCard() {
         });
       });
   };
+
   const requestSimilarMovies = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}`).then((r) =>
       r.json()
     );
   };
+
   const addToFavorites = (e) => {
     e.preventDefault();
     const sendRequest = (data) => (dispatchFavorites) => {
       dispatchFavorites({ type: 'ADD-TO-FAVORITES', favorites: data });
     };
-    if (state.favoritesMovies.length > 0) {
+    if (state.favoritesMovies.length) {
       if (!includesArrFavorites) {
         dispatch(sendRequest(movieState));
       }
@@ -68,8 +76,9 @@ function FullCard() {
       dispatch(sendRequest(movieState));
     }
   };
+
   useEffect(() => {
-    asyncCurrentMovie();
+    getCurrentMovie();
     requestMovieActors();
     requestSimilarMovies();
   }, [id]);

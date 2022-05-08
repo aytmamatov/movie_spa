@@ -26,17 +26,19 @@ function Search() {
 
     const searchRequest = `search/movie?query=${state.search}`;
 
-    dispatch({ type: 'SEARCH-IS-LOADING', isLoading: true });
-    try {
-      const { data: movies } = await getDataFromServer(searchRequest);
-      setState((prev) => ({ ...prev, films: movies.results, currentPage: movies.page }));
-      dispatch({
-        type: 'GET-MOVIES',
-        movie: movies,
-        search: state.search
-      });
-    } finally {
-      dispatch({ type: 'SEARCH-IS-LOADING', isLoading: false });
+    if (state.search) {
+      dispatch({ type: 'SEARCH-IS-LOADING', isLoading: true });
+      try {
+        const { data: movies } = await getDataFromServer(searchRequest);
+        setState((prev) => ({ ...prev, films: movies.results, currentPage: movies.page }));
+        dispatch({
+          type: 'GET-MOVIES',
+          movie: movies,
+          search: state.search
+        });
+      } finally {
+        dispatch({ type: 'SEARCH-IS-LOADING', isLoading: false });
+      }
     }
   }
 

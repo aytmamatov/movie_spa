@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { getDataFromServer } from 'src/adapters/xhr';
 import 'src/components/Navbar/Search/Search.sass';
 
 function Search() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userEmpty = {
@@ -14,7 +16,9 @@ function Search() {
 
   const [state, setState] = useState(userEmpty);
 
-  const inputHandler = (e) => {
+  const searchHandler = (e) => {
+    navigate(`?search=${e.target.value}`);
+    localStorage.setItem('search', e.target.value);
     setState((prev) => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -50,7 +54,7 @@ function Search() {
             type="text"
             name="search"
             placeholder="Find movies"
-            onChange={inputHandler}
+            onChange={searchHandler}
             className="form-control search__input"
           />
         </form>

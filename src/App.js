@@ -13,8 +13,8 @@ function App() {
       <Search />
       <Routes>
         <Route path="/" element={<Content />} />
-        <Route path="/fullcard/:id" element={<FullCard />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route exact path="/fullcard/:id" element={<FullCard />} />
+        <Route exact path="/favorites" element={<Favorites />} />
       </Routes>
     </div>
   );

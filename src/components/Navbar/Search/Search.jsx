@@ -5,13 +5,12 @@ import { getDataFromServer } from 'src/adapters/xhr';
 import Chip from 'src/components/Navbar/Search/Chip/Chip';
 import 'src/components/Navbar/Search/Search.sass';
 import Preloader from 'src/components/UI/Preloader/Preloader';
-import { API_KEY } from 'src/config';
 
-const GENRE_URL = `genre/movie/list?api_key=${API_KEY}`;
+const GENRE_URL = 'genre/movie/list';
 
-const returnSearchUrl = (search) => `search/movie?api_key=${API_KEY}&query=${search}`;
+const returnSearchUrl = (search) => `search/movie?query=${search}`;
 const returnGenresUrl = (genresIds) =>
-  `discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genresIds}`;
+  `discover/movie?language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genresIds}`;
 
 function Search() {
   const dispatch = useDispatch();

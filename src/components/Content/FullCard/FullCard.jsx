@@ -5,8 +5,6 @@ import { getDataFromServer } from 'src/adapters/xhr';
 import 'src/components/Content/FullCard/FullCard.sass';
 import Preloader from 'src/components/UI/Preloader/Preloader';
 
-const returnMovieUrl = (movieId) => `https://api.themoviedb.org/3/movie/${movieId}`;
-
 function FullCard() {
   const state = useSelector((currentState) => currentState.favorites);
   const dispatch = useDispatch();
@@ -33,7 +31,7 @@ function FullCard() {
   }
 
   async function getCurrentMovie() {
-    const currentMovieUrl = returnMovieUrl(id);
+    const currentMovieUrl = `movie/${id}`;
     setIsLoading(true);
     try {
       const { data: movie } = await getDataFromServer(currentMovieUrl);

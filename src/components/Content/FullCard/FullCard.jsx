@@ -4,7 +4,6 @@ import { useParams } from 'react-router';
 import { getDataFromServer } from 'src/adapters/xhr';
 import 'src/components/Content/FullCard/FullCard.sass';
 import Preloader from 'src/components/UI/Preloader/Preloader';
-import { API_KEY } from 'src/config';
 
 const returnMovieUrl = (movieId) => `https://api.themoviedb.org/3/movie/${movieId}`;
 
@@ -13,7 +12,6 @@ function FullCard() {
   const dispatch = useDispatch();
   const [movieState, setMovieState] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [movieActors] = useState([]);
   const arrMoviesId = state.favoritesMovies.map((item) => item.id);
   const includesArrFavorites = arrMoviesId.includes(movieState.id);
 
@@ -45,24 +43,6 @@ function FullCard() {
     }
   }
 
-  const requestMovieActors = () => {
-    fetch(`https://api.themoviedb.org/3/movie/${id}/casts?api_key=${API_KEY}`)
-      .then((r) => r.json())
-      .then((r) => {
-        r.cast.forEach((item, i) => {
-          if (i <= 10) {
-            movieActors.push(item);
-          }
-        });
-      });
-  };
-
-  const requestSimilarMovies = () => {
-    fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}`).then((r) =>
-      r.json()
-    );
-  };
-
   const addToFavorites = (e) => {
     e.preventDefault();
     const sendRequest = (data) => (dispatchFavorites) => {
@@ -79,8 +59,6 @@ function FullCard() {
 
   useEffect(() => {
     getCurrentMovie();
-    requestMovieActors();
-    requestSimilarMovies();
   }, [id]);
 
   return (

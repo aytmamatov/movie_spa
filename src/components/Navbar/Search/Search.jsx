@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getDataFromServer } from 'src/adapters/xhr';
 import Chip from 'src/components/Navbar/Search/Chip/Chip';
 import 'src/components/Navbar/Search/Search.sass';
@@ -8,10 +8,10 @@ import Preloader from 'src/components/UI/Preloader/Preloader';
 import { API_KEY } from 'src/config';
 
 const GENRE_URL = `genre/movie/list?api_key=${API_KEY}`;
+const returnSearchUrl = (search) => `search/movie?api_key=${API_KEY}&query=${search}`;
 
 function Search() {
   const dispatch = useDispatch();
-  const history = useNavigate();
   const userEmpty = {
     search: '',
     films: '',
@@ -67,23 +67,24 @@ function Search() {
       });
   };
 
-  const submitForm = (e) => {
-    dispatch({ type: 'SEARCH-IS-LOADING', isLoading: true });
-    history.push('/');
+  async function submitForm(e) {
     e.preventDefault();
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${state.search}`)
-      .then((r) => r.json())
-      .then((r) => {
-        setState((prev) => ({ ...prev, films: r, currentPage: r.page }));
-        dispatch({
-          type: 'GET-MOVIES',
-          movie: r,
-          search: state.search,
-          genresLoadMore: false
-        });
-        dispatch({ type: 'SEARCH-IS-LOADING', isLoading: false });
+    dispatch({ type: 'SEARCH-IS-LOADING', isLoading: true });
+
+    try {
+      const { data: movies } = await getDataFromServer(returnSearchUrl(state.search));
+      setState((prev) => ({ ...prev, films: movies.results, currentPage: movies.page }));
+      dispatch({
+        type: 'GET-MOVIES',
+        movie: movies,
+        search: state.search,
+        genresLoadMore: false
       });
-  };
+    } finally {
+      dispatch({ type: 'SEARCH-IS-LOADING', isLoading: false });
+    }
+  }
+
   const handleAdd = (genre) => {
     const copyArr = genresState.map((item) => {
       if (item.id === genre.id) {
